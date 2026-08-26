@@ -1,0 +1,23 @@
+#!/usr/bin/env nbb
+;; Run the suite on the ClojureScript side.
+;;
+;; Not a formality, and not redundant with the JVM job. Three things in this
+;; library are a different operation on each runtime: the UTF-8 codec
+;; (`String.getBytes` vs `TextEncoder`), the byte-vector arithmetic that
+;; `bit-xor` compiles to, and the injected SHA-1 (`MessageDigest` vs
+;; `node:crypto`). A green JVM run says nothing about any of them.
+;;
+;;   nbb --classpath "$(clojure -A:cljs -Spath)" scripts/verify-cljs.cljs
+(ns verify-cljs
+  (:require [clojure.test :as t]
+            [websocket.frame-test]
+            [websocket.handshake-test]))
+
+(defmethod t/report [:cljs.test/default :end-run-tests] [m]
+  (println)
+  (if (t/successful? m)
+    (println "all checks passed on the ClojureScript path")
+    (do (println "FAILED on the ClojureScript path")
+        (js/process.exit 1))))
+
+(t/run-tests 'websocket.frame-test 'websocket.handshake-test)
