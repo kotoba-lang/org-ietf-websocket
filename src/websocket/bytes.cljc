@@ -8,7 +8,7 @@
   other. Writing only the ClojureScript form of either compiles cleanly and
   fails at runtime on the JVM, which is why this library ships two test
   runners rather than one."
-  (:require [clojure.string :as str]))
+  (:require [kotoba.lang.text :as str]))
 
 (defn string->bytes
   "UTF-8 encode to a vector of bytes 0..255."
