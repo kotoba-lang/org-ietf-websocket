@@ -19,7 +19,7 @@
   security surface, and pulling a dependency for it would pin this leaf to
   a runtime — the same reasoning `org-ietf-blake2` gives for having no deps
   at all."
-  (:require [clojure.string :as str]
+  (:require [kotoba.lang.text :as str]
             [websocket.bytes :as b]))
 
 (def guid
@@ -122,8 +122,8 @@
   "Header lookup that is case-insensitive, because HTTP/1.1 field names are
   (RFC 9110 §5.1) and a peer that sends `sec-websocket-accept` is correct."
   [headers name]
-  (let [want (str/lower-case name)]
-    (some (fn [[k v]] (when (= want (str/lower-case (str k))) v)) headers)))
+  (let [want (str/lower name)]
+    (some (fn [[k v]] (when (= want (str/lower (str k))) v)) headers)))
 
 (defn validate-server-response
   "Check a server's response against the key the client sent.
@@ -136,8 +136,8 @@
         accept (header headers "Sec-WebSocket-Accept")]
     (cond
       (not= 101 status) {:status :error :reason :not-switching-protocols :http-status status}
-      (not= "websocket" (some-> upgrade str/lower-case)) {:status :error :reason :bad-upgrade-header}
-      (not (some-> connection str/lower-case (str/includes? "upgrade"))) {:status :error :reason :bad-connection-header}
+      (not= "websocket" (some-> upgrade str/lower)) {:status :error :reason :bad-upgrade-header}
+      (not (some-> connection str/lower (str/includes? "upgrade"))) {:status :error :reason :bad-connection-header}
       (nil? accept) {:status :error :reason :missing-accept-header}
       (not= accept (accept-key key sha1)) {:status :error :reason :accept-mismatch}
       :else {:status :ok :protocol (header headers "Sec-WebSocket-Protocol")})))
