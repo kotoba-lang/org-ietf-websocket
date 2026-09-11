@@ -7,7 +7,7 @@
 ;; `bit-xor` compiles to, and the injected SHA-1 (`MessageDigest` vs
 ;; `node:crypto`). A green JVM run says nothing about any of them.
 ;;
-;;   nbb --classpath "$(clojure -A:cljs -Spath)" scripts/verify-cljs.cljs
+;;   nbb --classpath "$(clojure -A:cljs -Spath)" scripts/verify-cljs.cljk
 (ns verify-cljs
   (:require [clojure.test :as t]
             [websocket.frame-test]
