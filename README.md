@@ -76,8 +76,8 @@ own edge.
 ## Verify
 
 ```sh
-clojure -M:test                                          # JVM
-nbb --classpath "$(clojure -A:cljs -Spath)" scripts/verify-cljs.cljk   # ClojureScript
+kbb -M:test                                          # JVM
+kbb --backend sci --classpath "$(kbb -A:cljs -Spath)" scripts/verify-cljs.cljk   # ClojureScript
 ```
 
 **Run both.** They are not redundant, and this is not a formality — the
@@ -87,7 +87,7 @@ reported as green:
 1. **Shift width.** ClojureScript takes a bit-shift count mod 32, so a 64 KiB
    frame's length encoded with `>>> 48` came back as `>>> 16` and announced
    itself as `0x0001000000010000`. The 64-bit length path is now written with
-   division, not shifts. Reintroducing the shift leaves `clojure -M:test`
+   division, not shifts. Reintroducing the shift leaves `kbb -M:test`
    green and turns the ClojureScript run red — that asymmetry is measured, not
    asserted.
 2. **`(map int s)`.** Correct on the JVM; under ClojureScript a character is a
