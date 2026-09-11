@@ -77,7 +77,7 @@ own edge.
 
 ```sh
 clojure -M:test                                          # JVM
-nbb --classpath "$(clojure -A:cljs -Spath)" scripts/verify-cljs.cljs   # ClojureScript
+nbb --classpath "$(clojure -A:cljs -Spath)" scripts/verify-cljs.cljk   # ClojureScript
 ```
 
 **Run both.** They are not redundant, and this is not a formality — the
