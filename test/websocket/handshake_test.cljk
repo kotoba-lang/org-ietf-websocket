@@ -1,5 +1,5 @@
 (ns websocket.handshake-test
-  (:require [clojure.test :refer [deftest is testing]]
+  (:require [kotoba.test :refer [deftest is testing]]
             [websocket.bytes :as b]
             [websocket.handshake :as h]))
 

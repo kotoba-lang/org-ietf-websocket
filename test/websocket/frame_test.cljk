@@ -3,7 +3,7 @@
   specification with both sides written out, so they are the only ones that
   can tell an encoder that agrees with its own decoder from one that agrees
   with the RFC."
-  (:require [clojure.test :refer [deftest is testing]]
+  (:require [kotoba.test :refer [deftest is testing]]
             [websocket.frame :as f]))
 
 (def hello (f/string->bytes "Hello"))
